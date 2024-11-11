@@ -8,16 +8,11 @@ def test_status_code():
     # Send a GET request to the root URL
     response = client.get('/')
 
-    try:
-        # Check that the response status code is 200 (OK)
-        assert response.status_code == 200
-        assert response.data == b'Hello, World!'
+    # Check that the response status code is 200 (OK)
+    assert response.status_code == 200
+    assert response.data == b'Hello, World!'
 
-        print("Tests passed!")
-
-    except AssertionError as ae:
-        print("Tests did NOT pass! :(")
-
+    print("Tests passed!")
 
 if __name__ == '__main__':
     test_status_code()
