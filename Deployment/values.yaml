@@ -1,0 +1,4 @@
+replicaCount: 2
+appName: Shalom-Olam
+appPort: 5000
+image: idanpersi/flask-hello-world
