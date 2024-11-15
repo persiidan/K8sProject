@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: hello-dor
-          image: {{ .Values.image }}
+          image: idanpersi/flask-hello-world
           ports:
             - name: http
               containerPort: {{ .Values.appPort }}
