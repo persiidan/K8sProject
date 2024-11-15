@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:   python-app
+  name:   {{ .Values.appName }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: python-app
+      app: {{ .Values.appName }}
   template:
     metadata:
       labels:
-        app: python-app
+        app: {{ .Values.appName }}
     spec:
       containers:
         - name: hello-dor
-          image: idanpersi/flask-hello-world
+          image: {{ .Values.image }}
           ports:
             - name: http
-              containerPort: 5000
+              containerPort: {{ .Values.appPort }}
               protocol: TCP
           livenessProbe:
             httpGet:
