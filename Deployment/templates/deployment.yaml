@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:   py-app
+  name: py-app
 spec:
   replicas: 2
   selector:
