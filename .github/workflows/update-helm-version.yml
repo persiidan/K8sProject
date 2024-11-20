@@ -1,0 +1,41 @@
+name: Update Helm Chart Version
+
+on:
+  workflow_run:
+    workflows:
+      - Build, Test, and Push to Docker Hub # Name of the docker image workflow
+    types:
+      - completed
+
+
+jobs:
+  update-helm-version:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Git
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+
+    - name: Increment Helm chart version
+      run: |
+        # Extract current version from Chart.yaml
+        current_version=$(grep '^version:' Deployment/Chart.yaml | awk '{print $2}')
+        echo "Current version: $current_version"
+
+        # Increment the patch version (0.0.1)
+        new_version=$(echo "$current_version" | awk -F. '{print $1 "." $2 "." $3+1}')
+        echo "New version: $new_version"
+
+        # Update the Chart.yaml file with the new version
+        sed -i "s/^version: .*/version: $new_version/" Deployment/Chart.yaml
+
+    - name: Commit and push updated chart version
+      run: |
+        git add Deployment/Chart.yaml
+        git commit -m "Increment Helm chart version to $new_version"
+        git push origin main
