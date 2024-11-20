@@ -1,4 +1,4 @@
 replicaCount: 2
 appPort: 5000
-appName: hello-dor2
+appName: hello-dor
 image: idanpersi/flask-hello-world
