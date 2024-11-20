@@ -13,7 +13,6 @@ name: Build, Test, and Push to Docker Hub
 #       - test_app.py
 #       - Dockerfile
 #       - requirements.txt
-
 on:
   push:
     branches: 
