@@ -1,4 +1,6 @@
 replicaCount: 2
 appPort: 5000
 appName: hello-dor
-image: idanpersi/flask-hello-world
+image:
+  name: idanpersi/flask-hello-world
+  tag: latest
