@@ -1,18 +1,6 @@
 name: Build, Test, and Push to Docker Hub
 
-# on:
-#   push:
-#     paths:
-#       - app.py
-#       - test_app.py
-#       - Dockerfile
-#       - requirements.txt
-#   pull_request:
-#     paths:
-#       - app.py
-#       - test_app.py
-#       - Dockerfile
-#       - requirements.txt
+
 on:
   push:
     branches: 
