@@ -23,15 +23,12 @@ jobs:
 
     - name: Increment Helm chart version
       run: |
-        # Extract current version from Chart.yaml
         current_version=$(grep '^version:' Deployment/Chart.yaml | awk '{print $2}')
         echo "Current version: $current_version"
 
-        # Increment the patch version (0.0.1)
         new_version=$(echo "$current_version" | awk -F. '{print $1 "." $2 "." $3+1}')
         echo "New version: $new_version"
 
-        # Update the Chart.yaml file with the new version
         sed -i "s/^version: .*/version: $new_version/" Deployment/Chart.yaml
 
     - name: Commit and push updated chart version
