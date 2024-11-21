@@ -3,4 +3,4 @@ appPort: 5000
 appName: hello-dor
 image:
   name: idanpersi/flask-hello-world
-  tag: latest
+  tag: 20241121-111151
