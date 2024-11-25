@@ -27,11 +27,11 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
                     
     - name: Build Docker image
-      run: docker build -t $DOCKER_IMAGE_NAME .
+      run: docker build -t ${{ env.DOCKER_IMAGE_NAME }} .
     
     - name: Test Docker image
       run: |
-        docker run --rm $DOCKER_IMAGE_NAME python test_app.py
+        docker run --rm ${{ env.DOCKER_IMAGE_NAME }} python test_app.py
 
     - name: Get Current Date and Time
       id: date
@@ -44,10 +44,10 @@ jobs:
           sed -i "s|\(tag: \).*|\1${DATE_TAG}|g" Deployment/values.yaml
 
     - name: Tag Docker image
-      run: docker tag $DOCKER_IMAGE_NAME ${{ secrets.DOCKER_USERNAME }}/$DOCKER_IMAGE_NAME:$DATE_TAG
+      run: docker tag ${{ env.DOCKER_IMAGE_NAME }} ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.DATE }}
 
     - name: Push to Docker Hub
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/$DOCKER_IMAGE_NAME:$DATE_TAG
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.DATE }}
  
     - name: Push Update to Git
       run: |
