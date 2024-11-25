@@ -11,6 +11,9 @@ on:
 jobs:
   build-and-push-and-update:
     runs-on: ubuntu-latest
+    env:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_IMAGE_NAME: "flask-hello-world"
 
     steps:
     - name: Checkout code
@@ -19,15 +22,15 @@ jobs:
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
+        username: $DOCKER_USERNAME
         password: ${{ secrets.DOCKER_PASSWORD }}
                     
     - name: Build Docker image
-      run: docker build -t flask-hello-world .
+      run: docker build -t $DOCKER_IMAGE_NAME .
     
     - name: Test Docker image
       run: |
-        docker run --rm flask-hello-world python test_app.py
+        docker run --rm $DOCKER_IMAGE_NAME python test_app.py
 
     - name: Get Current Date and Time
       id: date
@@ -40,10 +43,10 @@ jobs:
           sed -i "s|\(tag: \).*|\1${DATE_TAG}|g" Deployment/values.yaml
 
     - name: Tag Docker image
-      run: docker tag flask-hello-world idanpersi/flask-hello-world:${DATE_TAG}
+      run: docker tag $DOCKER_IMAGE_NAME $DOCKER_USERNAME/$DOCKER_IMAGE_NAME:$DATE_TAG
 
     - name: Push to Docker Hub
-      run: docker push idanpersi/flask-hello-world:${DATE_TAG}
+      run: docker push idanpersi/$DOCKER_IMAGE_NAME:$DATE_TAG
  
     - name: Push Update to Git
       run: |
