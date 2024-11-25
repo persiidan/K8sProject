@@ -2,11 +2,13 @@ name: Build And Update Image
 
 on:
   push:
-    paths:
-      - app.py
-      - test_app.py
-      - Dockerfile
-      - requirements.txt
+    # paths:
+    #   - app.py
+    #   - test_app.py
+    #   - Dockerfile
+    #   - requirements.txt
+    branches:
+      - main
 
 jobs:
   build-and-push-and-update:
